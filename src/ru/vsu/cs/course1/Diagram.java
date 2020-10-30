@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Diagram{
-    private List<Candle> candles;
-    LineDrawer ld;
+    private List<Candle> candles = new ArrayList<>();
+//    LineDrawer ld;
     private int width;
 
     public Diagram() {
@@ -14,28 +14,32 @@ public class Diagram{
     }
 
     public void createDiagram(){
-        candles = new ArrayList<>();
-        int[] c1 = {20, 35, 15, 30};
-        int[] c2 = {10, 35, 15, 60};
+//        candles = new ArrayList<>();
+        int[] c1 = {20, 35, 5, 30};
+        int[] c2 = {10, 35, 5, 25};
         candles.add( new Candle(c1));
         candles.add( new Candle(c2));
-
+        candles.add( new Candle(new int[] {10, 50, 10, 30}));
+        candles.add( new Candle(new int[] {30, 30, 30, 20}));
+        candles.add( new Candle(new int[] {10, 30, 20, 20}));
+        candles.add( new Candle(new int[] {50, 60, 30, 40}));
+        candles.add( new Candle(new int[] {20, 40, 10, 30}));
+        candles.add( new Candle(new int[] {10, 10, 10, 20}));
     }
 
-    public void draw(LineDrawer ld, ScreenConverter sc, int h){
-        this.ld = ld;
-        int i = h;
-        for (Candle candle : candles) {
-            RealPoint p1 = new RealPoint(i, candle.getArrPoints()[1]);
-            RealPoint p2 = new RealPoint(i, candle.getArrPoints()[3]);
-            ld.drawLine(sc.r2s(p1), sc.r2s(p2));
-            for (int j = 0; j < h; j++) {
-                System.out.println(i);
-                RealPoint p3 = new RealPoint((int) (i-h/2), candle.getArrPoints()[0]);
-                RealPoint p4 = new RealPoint((int) (i-h/2), candle.getArrPoints()[2]);
-                ld.drawLine(sc.r2s(p3), sc.r2s(p4));
-            }
-            i += 2*h;
+    public void randomDiagram(int size){
+        for (int i = 0; i < size; i++) {
+            candles.add(new Candle());
+        }
+    }
+
+
+        public void draw(LineDrawer ld, ScreenConverter sc, int x, int y, int deltaX){
+        ScreenPoint screenPointDelta = new ScreenPoint(x, y);
+        int screenX = sc.r2s(new RealPoint(x,y)).getX();
+        for (Candle candle : candles){
+            candle.draw(ld, sc, screenX, deltaX);
+            screenX += 2*deltaX;
         }
     }
 

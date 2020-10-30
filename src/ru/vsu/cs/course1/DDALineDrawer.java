@@ -3,8 +3,13 @@ package ru.vsu.cs.course1;
 import java.awt.*;
 
 public class DDALineDrawer implements LineDrawer{
+    private Color color = Color.black;
     public DDALineDrawer(PixelDrawer pd){  // alt+insert
         this.pd = pd;
+    }
+
+    public void setColor(Color color){
+        this.color = color;
     }
 
     private PixelDrawer pd;
@@ -26,7 +31,7 @@ public class DDALineDrawer implements LineDrawer{
             double k = dy/dx;
             for (int j = x1; j < x2; j++) {
                 double i = k*(j-x1) + y1; // y1 = kx1 + b; y = kx + y1 - kx1 = k * (x - x1) + y1;
-                pd.putPixel(j, (int) i, Color.red);
+                pd.putPixel(j, (int) i, color);
             }
         } else{
             if (y1 > y2) {
@@ -40,7 +45,7 @@ public class DDALineDrawer implements LineDrawer{
             double kObr = dx/dy;
             for (int i = y1; i < y2; i++) {
                 double j = kObr*(i-y1) + x1; // y1 = kx1 + b; y = kx + y1 - kx1 = k * (x - x1) + y1;
-                pd.putPixel((int) j, i, Color.blue);
+                pd.putPixel((int) j, i, color);
             }
         }
     }

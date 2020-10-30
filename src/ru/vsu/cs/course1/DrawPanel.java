@@ -9,26 +9,52 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
     private ScreenConverter sc = new ScreenConverter(
             -10, 190, 200, 200, 800, 600);
 
-    private Line xAxis = new Line(0, 0, 200, 0);
-    private Line yAxis = new Line(0, 0, 0, 200);
+//    private Line xAxis = new Line(0, 0, 200, 0);
+//    private Line yAxis = new Line(0, 0, 0, 200);
 
-    DrawPanel (){
+    private Diagram diagram = new Diagram();
+
+
+    DrawPanel() {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.addMouseWheelListener(this);
+
+        diagram.randomDiagram(30);
+
     }
 
-    private void drawAll(LineDrawer ld) {
-//        ld.drawLine(sc.r2s(xAxis.getP1()), sc.r2s(xAxis.getP2()));
-//        ld.drawLine(sc.r2s(yAxis.getP1()), sc.r2s(yAxis.getP2()));
+    private void drawXY(LineDrawer ld, int widthCandles, int count, int xDel) {
+//        int x = widthCandles * count;
+        Line xAxis = new Line(0, 0, widthCandles * (count + 1), 0);
+        Line yAxis = new Line(0, 0, 0, 200);
         drawLine(ld, xAxis);
         drawLine(ld, yAxis);
-        drawLine(ld, new Line(10, 10, 20, 20));
+        for (int i = 0; i < count; i++) {
+            int xx = sc.r2s(new RealPoint(xDel, 0)).getX();
+            ScreenPoint p1 = new ScreenPoint(xx + 2 * widthCandles * i + widthCandles / 2, sc.r2s(new RealPoint(0, -2)).getY());
+            ScreenPoint p2 = new ScreenPoint(xx + 2 * widthCandles * i + widthCandles / 2, sc.r2s(new RealPoint(0, 2)).getY());
+            ld.drawLine(p1, p2);
+        }
+//        for (int i = 0; i < ; i++) {
+//
+//        }
+    }
+
+    private void drawDiagram(LineDrawer ld) {
+//        ld.drawLine(sc.r2s(xAxis.getP1()), sc.r2s(xAxis.getP2()));
+//        ld.drawLine(sc.r2s(yAxis.getP1()), sc.r2s(yAxis.getP2()));
+
+        int count = diagram.getCandles().size();
+        int widthCandle = 20;
+        int xDel = 10;
+        drawXY(ld, widthCandle, count, xDel);
+//        drawLine(ld, xAxis);
+//        drawLine(ld, yAxis);
+        drawLine(ld, new Line(xDel, 10, 20, 20));
 
 
-        Diagram diagram = new Diagram();
-        diagram.createDiagram();
-        diagram.draw(ld, sc, 10);
+        diagram.draw(ld, sc, xDel, 0, widthCandle);
 //        for (Line q : allLines) {
 //            drawLine(ld, q);
 //            if (newLine != null) {
@@ -50,11 +76,10 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
         /**/
         PixelDrawer pd = new BufferedImagePixelDrawer(bi);
         LineDrawer ld = new DDALineDrawer(pd);
-        drawAll(ld);
+        drawDiagram(ld);
         /**/
         g.drawImage(bi, 0, 0, null);
     }
-
 
 
     private void drawLine(LineDrawer ld, Line l) { //любую линию с помощью LineDrawer

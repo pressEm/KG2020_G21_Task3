@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7af9d3f2-84a0-475c-a0ea-8edc939b13ef" name="Default Changelist" comment="" />
+    <list default="true" id="7af9d3f2-84a0-475c-a0ea-8edc939b13ef" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/Logic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/Candle.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/Candle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/DDALineDrawer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/DDALineDrawer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/Diagram.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/Diagram.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/DrawPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/DrawPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/LineDrawer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/LineDrawer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/ScreenConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KGTask3.1/ru/vsu/cs/course1/ScreenConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/Candle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/Candle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/DDALineDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/DDALineDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/Diagram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/Diagram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/DrawPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/DrawPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/LineDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/LineDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ru/vsu/cs/course1/ScreenConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ru/vsu/cs/course1/ScreenConverter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,11 +32,19 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1jQLRLM6LJRTB74qOtNGzxjlHWo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -64,49 +89,49 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser" timestamp="1603738356565">
+    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser" timestamp="1603983346912">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1603738356565" />
-    <state width="1537" height="221" key="GridCell.Tab.0.bottom" timestamp="1603740422162">
+    <state x="574" y="126" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1603983346912" />
+    <state width="1537" height="221" key="GridCell.Tab.0.bottom" timestamp="1604064482832">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="221" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1603740422162" />
-    <state width="1537" height="221" key="GridCell.Tab.0.center" timestamp="1603740422162">
+    <state width="1537" height="221" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604064482832" />
+    <state width="1537" height="221" key="GridCell.Tab.0.center" timestamp="1604064482832">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="221" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1603740422162" />
-    <state width="1537" height="221" key="GridCell.Tab.0.left" timestamp="1603740422162">
+    <state width="1537" height="221" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1604064482832" />
+    <state width="1537" height="221" key="GridCell.Tab.0.left" timestamp="1604064482832">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="221" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1603740422162" />
-    <state width="1537" height="221" key="GridCell.Tab.0.right" timestamp="1603740422162">
+    <state width="1537" height="221" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1604064482832" />
+    <state width="1537" height="221" key="GridCell.Tab.0.right" timestamp="1604064482832">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="221" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1603740422162" />
-    <state width="1537" height="274" key="GridCell.Tab.1.bottom" timestamp="1603740285968">
+    <state width="1537" height="221" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1604064482832" />
+    <state width="1537" height="274" key="GridCell.Tab.1.bottom" timestamp="1604044393463">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="274" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1603740285968" />
-    <state width="1537" height="274" key="GridCell.Tab.1.center" timestamp="1603740285968">
+    <state width="1537" height="274" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1604044393463" />
+    <state width="1537" height="274" key="GridCell.Tab.1.center" timestamp="1604044393463">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="274" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1603740285968" />
-    <state width="1537" height="274" key="GridCell.Tab.1.left" timestamp="1603740285968">
+    <state width="1537" height="274" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1604044393463" />
+    <state width="1537" height="274" key="GridCell.Tab.1.left" timestamp="1604044393463">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="274" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1603740285968" />
-    <state width="1537" height="274" key="GridCell.Tab.1.right" timestamp="1603740285968">
+    <state width="1537" height="274" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1604044393463" />
+    <state width="1537" height="274" key="GridCell.Tab.1.right" timestamp="1604044393463">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1537" height="274" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1603740285968" />
+    <state width="1537" height="274" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1604044393463" />
     <state x="465" y="241" key="com.intellij.ide.util.TipDialog" timestamp="1603784827981">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="465" y="241" key="com.intellij.ide.util.TipDialog/0.0.1536.834@0.0.1536.834" timestamp="1603784827981" />
-    <state x="475" y="45" key="refactoring.ChangeSignatureDialog" timestamp="1603739411007">
+    <state x="475" y="45" key="refactoring.ChangeSignatureDialog" timestamp="1604044734123">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="475" y="45" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1603739411007" />
+    <state x="475" y="45" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1604044734123" />
   </component>
 </project>
