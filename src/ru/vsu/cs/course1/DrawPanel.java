@@ -5,27 +5,26 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-public class DrawPanel extends JPanel implements MouseMotionListener, MouseListener, MouseWheelListener {
+public class DrawPanel extends JPanel implements MouseMotionListener, MouseListener, MouseWheelListener, KeyListener {
     private ScreenConverter sc = new ScreenConverter(
             -10, 190, 200, 200, 800, 600);
 
-//    private Line xAxis = new Line(0, 0, 200, 0);
-//    private Line yAxis = new Line(0, 0, 0, 200);
-
-    private Diagram diagram = new Diagram();
+    private Diagram diagram;
 
 
     DrawPanel() {
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.addMouseWheelListener(this);
+        this.addKeyListener(this);
+        this.setFocusable(true);
 
+        diagram = new Diagram();
         diagram.randomDiagram(30);
-
+        diagram.printCandles();
     }
 
     private void drawXY(LineDrawer ld, int widthCandles, int count, int xDel) {
-//        int x = widthCandles * count;
         Line xAxis = new Line(0, 0, widthCandles * (count + 1), 0);
         Line yAxis = new Line(0, 0, 0, 200);
         drawLine(ld, xAxis);
@@ -36,25 +35,18 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
             ScreenPoint p2 = new ScreenPoint(xx + 2 * widthCandles * i + widthCandles / 2, sc.r2s(new RealPoint(0, 2)).getY());
             ld.drawLine(p1, p2);
         }
-//        for (int i = 0; i < ; i++) {
-//
-//        }
+        for (int i = 0; i < 20; i++) {
+            Line line = new Line(new RealPoint(-2, i*10), new RealPoint(2, i*10));
+            drawLine(ld, line);
+        }
     }
 
     private void drawDiagram(LineDrawer ld) {
-//        ld.drawLine(sc.r2s(xAxis.getP1()), sc.r2s(xAxis.getP2()));
-//        ld.drawLine(sc.r2s(yAxis.getP1()), sc.r2s(yAxis.getP2()));
-
         int count = diagram.getCandles().size();
         int widthCandle = 20;
         int xDel = 10;
         drawXY(ld, widthCandle, count, xDel);
-//        drawLine(ld, xAxis);
-//        drawLine(ld, yAxis);
-        drawLine(ld, new Line(xDel, 10, 20, 20));
-
-
-        diagram.draw(ld, sc, xDel, 0, widthCandle);
+        diagram.draw(ld, sc, xDel, widthCandle);
 //        for (Line q : allLines) {
 //            drawLine(ld, q);
 //            if (newLine != null) {
@@ -98,12 +90,11 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
             );
             RealPoint deltaReal = sc.s2r(deltaScreen);
 
-//            ????????
             double vectorX = deltaReal.getX() - sc.getCornerX();
-            double vectorY = deltaReal.getY() - sc.getCornerY();
+//            double vectorY = deltaReal.getY() - sc.getCornerY();
 
             sc.setCornerX(sc.getCornerX() - vectorX);
-            sc.setCornerY(sc.getCornerY() - vectorY);
+//            sc.setCornerY(sc.getCornerY() - vectorY);
             prevPoint = currentPoint;
         }
         repaint();
@@ -154,6 +145,23 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
         sc.setRealH(scale * sc.getRealH());
         repaint();
     }
-}
 
-//Задавать свечи в реальных или экранных координатах
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+        if ( keyEvent.getKeyCode() == 127) {
+            diagram = new Diagram();
+            diagram.randomDiagram(50);
+            diagram.printCandles();
+            repaint();
+        }
+    }
+}

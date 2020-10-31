@@ -14,7 +14,6 @@ public class Diagram{
     }
 
     public void createDiagram(){
-//        candles = new ArrayList<>();
         int[] c1 = {20, 35, 5, 30};
         int[] c2 = {10, 35, 5, 25};
         candles.add( new Candle(c1));
@@ -33,10 +32,18 @@ public class Diagram{
         }
     }
 
+    public void printCandles(){
+        int i = 1;
+        for (Candle candle : candles){
+            System.out.println(i + ") open = " + candle.getArrPoints()[0] + ";  high =" + candle.getArrPoints()[1] +
+                    ";  low = " + candle.getArrPoints()[2] + ";  close = " + candle.getArrPoints()[3]);
+            i++;
+        }
+    }
 
-        public void draw(LineDrawer ld, ScreenConverter sc, int x, int y, int deltaX){
-        ScreenPoint screenPointDelta = new ScreenPoint(x, y);
-        int screenX = sc.r2s(new RealPoint(x,y)).getX();
+
+        public void draw(LineDrawer ld, ScreenConverter sc, int x, int deltaX){
+        int screenX = sc.r2s(new RealPoint(x,0)).getX();
         for (Candle candle : candles){
             candle.draw(ld, sc, screenX, deltaX);
             screenX += 2*deltaX;
