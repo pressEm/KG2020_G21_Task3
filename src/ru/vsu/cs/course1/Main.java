@@ -9,5 +9,6 @@ public class Main {
         mw.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mw.setSize(800, 600);
         mw.setVisible(true);
+
     }
 }

@@ -9,5 +9,6 @@ public class MainWindow extends JFrame {
     public MainWindow() throws HeadlessException {
         dp = new DrawPanel();
         this.add(dp);
+
     }
 }

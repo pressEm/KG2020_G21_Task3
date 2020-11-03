@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class DrawPanel extends JPanel implements MouseMotionListener, MouseListener, MouseWheelListener, KeyListener {
     private ScreenConverter sc = new ScreenConverter(
-            -10, 190, 200, 200, 800, 600);
+            -10, 140, 200, 200, 800, 600);
 
     private Diagram diagram;
 
@@ -24,39 +24,65 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
         diagram.printCandles();
     }
 
-    private void drawXY(LineDrawer ld, int widthCandles, int count, int xDel) {
-        Line xAxis = new Line(0, 0, widthCandles * (count + 1), 0);
-        Line yAxis = new Line(0, 0, 0, 200);
-        drawLine(ld, xAxis);
-        drawLine(ld, yAxis);
+    private void drawOY(LineDrawer ld){
+        double min = diagram.getMinCandle();
+        double max = diagram.getMaxCandle();
+
+        RealPoint rp1 = new RealPoint(10, min-20);
+        RealPoint rp2 = new RealPoint(10, max + 20);
+
+        ScreenPoint sP1 = new ScreenPoint(10, 0);
+        ScreenPoint sP2 = new ScreenPoint(10, getHeight());
+
+        ld.drawLine(sP1, sP2);
+
+        int i = (int) (min-10)/10;
+        for (; i < 20; i++) {
+            if ((i*10 >= (min - 10)) && (i*10 < (max + 10))) {
+                RealPoint rp3 = new RealPoint(-2, i * 10);
+                RealPoint rp4 = new RealPoint(2, i * 10);
+
+                ScreenPoint sP3 = new ScreenPoint(10 - getWidth() / 100, sc.r2s(rp3).getY());
+                ScreenPoint sP4 = new ScreenPoint(10 + getWidth() / 100, sc.r2s(rp4).getY());
+
+                ld.drawLine(sP3, sP4);
+            }
+        }
+    }
+
+    private void drawOX(LineDrawer ld, int widthCandles, int count, int xDel){
+        System.out.println("w " + widthCandles);
+        RealPoint rp1 = new RealPoint(10, 0);
+        RealPoint rp2 = new RealPoint(10 + widthCandles * (count + 1) , 0);
+
+        ScreenPoint sP1 = new ScreenPoint(10, sc.r2s(rp1).getY());
+        ScreenPoint sP2 = new ScreenPoint(getWidth() , sc.r2s(rp2).getY());
+
+        ld.drawLine(sP1, sP2);
         for (int i = 0; i < count; i++) {
             int xx = sc.r2s(new RealPoint(xDel, 0)).getX();
             ScreenPoint p1 = new ScreenPoint(xx + 2 * widthCandles * i + widthCandles / 2, sc.r2s(new RealPoint(0, -2)).getY());
             ScreenPoint p2 = new ScreenPoint(xx + 2 * widthCandles * i + widthCandles / 2, sc.r2s(new RealPoint(0, 2)).getY());
             ld.drawLine(p1, p2);
         }
-        for (int i = 0; i < 20; i++) {
-            Line line = new Line(new RealPoint(-2, i*10), new RealPoint(2, i*10));
-            drawLine(ld, line);
-        }
+    }
+
+    private void drawXY(LineDrawer ld, int widthCandles, int count, int xDel) {
+        drawOY(ld);
+        drawOX(ld, widthCandles, count, xDel);
     }
 
     private void drawDiagram(LineDrawer ld) {
         int count = diagram.getCandles().size();
-        int widthCandle = 20;
+        int widthCandle = getWidth()/60;
         int xDel = 10;
-        drawXY(ld, widthCandle, count, xDel);
-        diagram.draw(ld, sc, xDel, widthCandle);
-//        for (Line q : allLines) {
-//            drawLine(ld, q);
-//            if (newLine != null) {
-//                drawLine(ld, newLine);
-//            }
-//        }
+        drawXY(ld, widthCandle, count, 0);
+        diagram.draw(ld, sc, 0, widthCandle);
     }
 
     @Override
     public void paint(Graphics g) {
+
         sc.setScreenW(getWidth());
         sc.setScreenH(getHeight());
         BufferedImage bi = new BufferedImage(getWidth(), getHeight(),
@@ -91,10 +117,10 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
             RealPoint deltaReal = sc.s2r(deltaScreen);
 
             double vectorX = deltaReal.getX() - sc.getCornerX();
-//            double vectorY = deltaReal.getY() - sc.getCornerY();
+            double vectorY = deltaReal.getY() - sc.getCornerY();
 
             sc.setCornerX(sc.getCornerX() - vectorX);
-//            sc.setCornerY(sc.getCornerY() - vectorY);
+            sc.setCornerY(sc.getCornerY() - vectorY);
             prevPoint = currentPoint;
         }
         repaint();
