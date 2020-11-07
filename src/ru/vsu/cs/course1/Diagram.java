@@ -5,8 +5,6 @@ import java.util.List;
 
 public class Diagram{
     private List<Candle> candles = new ArrayList<>();
-//    LineDrawer ld;
-    private int width;
 
     public Diagram() {
 //        candles = new ArrayList<>();
@@ -40,7 +38,6 @@ public class Diagram{
             i++;
         }
     }
-
 
         public void draw(LineDrawer ld, ScreenConverter sc, int x, int deltaX){
         int screenX = sc.r2s(new RealPoint(x,0)).getX();

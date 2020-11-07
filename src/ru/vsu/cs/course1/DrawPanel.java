@@ -10,7 +10,9 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
             -10, 140, 200, 200, 800, 600);
 
     private Diagram diagram;
+    private int candleWidth = this.getWidth() / 60;
 
+    private int border = 30;
 
     DrawPanel() {
         this.addMouseListener(this);
@@ -24,21 +26,18 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
         diagram.printCandles();
     }
 
-    private void drawOY(LineDrawer ld){
+    private void drawOY(LineDrawer ld) {
         double min = diagram.getMinCandle();
         double max = diagram.getMaxCandle();
-
-        RealPoint rp1 = new RealPoint(10, min-20);
-        RealPoint rp2 = new RealPoint(10, max + 20);
 
         ScreenPoint sP1 = new ScreenPoint(10, 0);
         ScreenPoint sP2 = new ScreenPoint(10, getHeight());
 
         ld.drawLine(sP1, sP2);
 
-        int i = (int) (min-10)/10;
+        int i = (int) (min - 10) / 10;
         for (; i < 20; i++) {
-            if ((i*10 >= (min - 10)) && (i*10 < (max + 10))) {
+            if ((i * 10 >= (min - 10)) && (i * 10 < (max + 10))) {
                 RealPoint rp3 = new RealPoint(-2, i * 10);
                 RealPoint rp4 = new RealPoint(2, i * 10);
 
@@ -50,13 +49,13 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
         }
     }
 
-    private void drawOX(LineDrawer ld, int widthCandles, int count, int xDel){
-        System.out.println("w " + widthCandles);
+    private void drawOX(LineDrawer ld, int widthCandles, int count, int xDel) {
+//        System.out.println("w " + widthCandles);
         RealPoint rp1 = new RealPoint(10, 0);
-        RealPoint rp2 = new RealPoint(10 + widthCandles * (count + 1) , 0);
+        RealPoint rp2 = new RealPoint(10 + widthCandles * (count + 1), 0);
 
         ScreenPoint sP1 = new ScreenPoint(10, sc.r2s(rp1).getY());
-        ScreenPoint sP2 = new ScreenPoint(getWidth() , sc.r2s(rp2).getY());
+        ScreenPoint sP2 = new ScreenPoint(getWidth(), sc.r2s(rp2).getY());
 
         ld.drawLine(sP1, sP2);
         for (int i = 0; i < count; i++) {
@@ -74,10 +73,10 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
 
     private void drawDiagram(LineDrawer ld) {
         int count = diagram.getCandles().size();
-        int widthCandle = getWidth()/60;
-        int xDel = 10;
-        drawXY(ld, widthCandle, count, 0);
-        diagram.draw(ld, sc, 0, widthCandle);
+        candleWidth = getWidth() / 60;
+        int xDel = 0;
+        drawXY(ld, candleWidth, count, xDel);
+        DrawLogic.drawDiagram(ld, sc, diagram, 0, candleWidth);
     }
 
     @Override
@@ -108,22 +107,36 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        ScreenPoint currentPoint = new ScreenPoint(mouseEvent.getX(), mouseEvent.getY());
-        if (prevPoint != null) {
-            ScreenPoint deltaScreen = new ScreenPoint(
-                    currentPoint.getX() - prevPoint.getX(),
-                    currentPoint.getY() - prevPoint.getY()
-            );
-            RealPoint deltaReal = sc.s2r(deltaScreen);
+        if (SwingUtilities.isRightMouseButton(mouseEvent)) {
+            double bot = diagram.getMinCandle();
+            double top = diagram.getMaxCandle();
+            ScreenPoint p1 = sc.r2s(new RealPoint(0, bot));
+            ScreenPoint p2 = sc.r2s(new RealPoint(0, top));
+            ScreenPoint currentPoint = new ScreenPoint(mouseEvent.getX(), mouseEvent.getY());
+            if (!((p1.getY() <= this.getHeight() - border || currentPoint.getY() < prevPoint.getY())
+                    && (p2.getY() >= border || currentPoint.getY() > prevPoint.getY()))) {
+                currentPoint = new ScreenPoint(currentPoint.getX(), prevPoint.getY());
+            }
+            if (!(p1.getX() <= candleWidth * 2 || currentPoint.getX() < prevPoint.getX())) {
+                currentPoint = new ScreenPoint(prevPoint.getX(), currentPoint.getY());
+            }
+            if (prevPoint != null) {
+                ScreenPoint deltaScreen = new ScreenPoint(
+                        currentPoint.getX() - prevPoint.getX(),
+                        currentPoint.getY() - prevPoint.getY()
+                );
+                RealPoint deltaReal = sc.s2r(deltaScreen);
 
-            double vectorX = deltaReal.getX() - sc.getCornerX();
-            double vectorY = deltaReal.getY() - sc.getCornerY();
+                double vectorX = deltaReal.getX() - sc.getCornerX();
+                double vectorY = deltaReal.getY() - sc.getCornerY();
 
-            sc.setCornerX(sc.getCornerX() - vectorX);
-            sc.setCornerY(sc.getCornerY() - vectorY);
-            prevPoint = currentPoint;
+                sc.setCornerX(sc.getCornerX() - vectorX);
+                sc.setCornerY(sc.getCornerY() - vectorY);
+                prevPoint = currentPoint;
+            }
+            repaint();
+
         }
-        repaint();
     }
 
     @Override
@@ -161,14 +174,30 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-        int clicks = mouseWheelEvent.getWheelRotation();
+        int rotation = mouseWheelEvent.getWheelRotation();
+        if (rotation < 0) {
+            double bot = diagram.getMinCandle();
+            double top = diagram.getMaxCandle();
+            ScreenPoint p1 = sc.r2s(new RealPoint(0, bot));
+            ScreenPoint p2 = sc.r2s(new RealPoint(0, top));
+            if (Math.abs(p2.getY() - p1.getY()) * 1.11 > this.getHeight() - 2 * border) {
+                return;
+            }
+        }
         double scale = 1;
-        double step = (clicks < 0) ? 0.9 : 1.1;
-        for (int i = Math.abs(clicks); i > 0; i--) {
+        double step = (rotation < 0) ? 0.9 : 1.1;
+        for (int i = Math.abs(rotation); i > 0; i--) {
             scale *= step;
         }
         sc.setRealW(scale * sc.getRealW());
         sc.setRealH(scale * sc.getRealH());
+
+        RealPoint p1 = new RealPoint(0, 0);
+        ScreenPoint p2 = sc.r2s(p1);
+        if (rotation < 0 && p2.getX() > candleWidth * 2) {
+            ScreenPoint p3 = new ScreenPoint(candleWidth, 0);
+            sc.setCornerX(sc.s2r(p3).getX());
+        }
         repaint();
     }
 
@@ -183,7 +212,7 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        if ( keyEvent.getKeyCode() == 127) {
+        if (keyEvent.getKeyCode() == 127) {
             diagram = new Diagram();
             diagram.randomDiagram(50);
             diagram.printCandles();
