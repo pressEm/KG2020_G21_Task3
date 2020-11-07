@@ -174,6 +174,7 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+        System.out.println(mouseWheelEvent.getWheelRotation());;
         int rotation = mouseWheelEvent.getWheelRotation();
         if (rotation < 0) {
             double bot = diagram.getMinCandle();
@@ -197,6 +198,20 @@ public class DrawPanel extends JPanel implements MouseMotionListener, MouseListe
         if (rotation < 0 && p2.getX() > candleWidth * 2) {
             ScreenPoint p3 = new ScreenPoint(candleWidth, 0);
             sc.setCornerX(sc.s2r(p3).getX());
+        }
+        ScreenPoint minCandle = sc.r2s(new RealPoint(0,Logic.getMinCandle(diagram.getCandles())));
+        System.out.println("min" + minCandle.getY());
+        System.out.println(getHeight() - border);
+        if (rotation < 0) {
+            if (p2.getX() > candleWidth * 2) {
+                ScreenPoint p3 = new ScreenPoint(candleWidth, 0);
+                sc.setCornerX(sc.s2r(p3).getX());
+            }
+            ScreenPoint p3 = sc.r2s(new RealPoint(0, diagram.getMinCandle()));
+            if (p3.getY() > this.getHeight() - border) {
+                ScreenPoint p4 = new ScreenPoint(0, p3.getY() + border - this.getHeight());
+                sc.setCornerY(sc.s2r(p4).getY());
+            }
         }
         repaint();
     }
